@@ -10,13 +10,7 @@ import { useDispatch } from "react-redux";
 import { createPost } from "../../actions/posts";
 
 export default function Form() {
-  const [postData, setPostData] = useState({
-    creator: "",
-    title: "",
-    message: "",
-    tags: "",
-    selectedFIle: "",
-  });
+ const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
 
   const classes = useStyles();
   //this allows us to dispatch actions///
@@ -74,13 +68,7 @@ export default function Form() {
           value={postData.tags}
           onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
         />
-        <div className={classes.fileInput}>
-          <FileBase
-            type="file"
-            multiple={false}
-            onDone={({ base64 }) => setPostData({ ...postData, selectedFIle: base64 })}
-          />
-        </div>
+        <div className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div>
         <Button className={classes.buttonSubmit} variant="container" color="primary"  size="large" type="submit" fullWidth>Submit</Button>
         <Button  variant="contain" color="secondary"  size="small"  onClick={clear} fullWidth>Clear</Button>
       </form>
