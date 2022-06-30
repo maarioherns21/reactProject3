@@ -3,8 +3,14 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 
+////routes imported
+import postRoutes from "./routes/posts.js";
+
 //this initizialize the app
 const app = express();
+
+/// this is the routes for the server
+app.use("/post", postRoutes);
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
@@ -20,6 +26,7 @@ app.listen(port, function () {
   console.log(`Express app listening on port ${port}`);
 });
 
+////this one allows to coonenct to the data base
 mongoose.connect(CONNECTION_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
