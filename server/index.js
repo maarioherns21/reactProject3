@@ -9,12 +9,15 @@ import postRoutes from "./routes/posts.js";
 //this initizialize the app
 const app = express();
 
-/// this is the routes for the server
-app.use("/post", postRoutes);
+
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+//this cors alwats has to be on top of the ROutes
 app.use(cors());
+
+/// this is the routes for the server
+app.use("/post", postRoutes);
 
 ///THIS ONE CONNECTS TO MONGODB DATABASE
 const CONNECTION_URL =
