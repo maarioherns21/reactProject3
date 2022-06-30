@@ -2,7 +2,7 @@ import "./App.css";
 import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
 //this is importing hooks from redux
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 ///import images
 import logo from "../../images/logo.png";
 ///this is for the js styles functions
@@ -13,6 +13,7 @@ import Posts from "../../components/Posts/Post";
 import Form from "../../components/Form/Form";
 
 export default function App() {
+  const [currentId, setCurrentId] = useState(null)
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -32,10 +33,10 @@ export default function App() {
         <Container>
           <Grid container justify="space-between" alignItems="stretch" spacing={3}>
          <Grid item sx={12} sm={7}>
-        <Posts />
+        <Posts setCurrentId={setCurrentId}/>
          </Grid>
          <Grid item sx={12} sm={4}>
-            <Form />
+            <Form currentId={currentId}  setCurrentId={setCurrentId}/>
             </Grid>
           </Grid>
         </Container>

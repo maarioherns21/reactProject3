@@ -7,3 +7,6 @@ const url = "http://localhost:3001/post";
 
  // this creates anew post and axios post tehe new post 
 export  const createPost = (newPost) =>axios.post(url, newPost) 
+
+///api call for our update 
+export const updatePost = (id, updatedPost) => axios.patch(`${url}/${id}`, updatedPost);

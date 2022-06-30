@@ -21,6 +21,17 @@ export const createPost = (post) => async (dispatch) => {
 
     dispatch({ type: "CREATE", payload: data });
   } catch (error) {
-     console.log(error.message)
+    console.log(error.message);
+  }
+};
+///thi is going to update the post 
+export const updatePost = (id, post) => async (dispatch) => {
+  //   we need an api request to update the post // we distructor to get the {data} import instant
+  try {
+    const { data } = await api.updatePost(id, post);
+    ///passing an action of type of UPDATE
+    dispatch({ type: "UPDATE", payload: data });
+  } catch (error) {
+    console.log(error.message);
   }
 };
