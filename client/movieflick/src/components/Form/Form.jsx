@@ -53,4 +53,3 @@ export default function Form({ currentId, setCurrentId}) {
       </Paper>
     );
   };
-  

@@ -24,13 +24,23 @@ export const createPost = (post) => async (dispatch) => {
     console.log(error.message);
   }
 };
-///thi is going to update the post 
+///thi is going to update the post
 export const updatePost = (id, post) => async (dispatch) => {
   //   we need an api request to update the post // we distructor to get the {data} import instant
   try {
     const { data } = await api.updatePost(id, post);
     ///passing an action of type of UPDATE
     dispatch({ type: "UPDATE", payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+/// this is what is going to be going towards the frontend 
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    await api.deletePost(id);
+
+    dispatch({ type: "DELETE", payload: id });
   } catch (error) {
     console.log(error.message);
   }

@@ -10,3 +10,6 @@ export  const createPost = (newPost) =>axios.post(url, newPost)
 
 ///api call for our update 
 export const updatePost = (id, updatedPost) => axios.patch(`${url}/${id}`, updatedPost);
+
+///api call for post to delete
+export const deletePost = (id) => axios.delete(`${url}/${id}`);
