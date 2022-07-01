@@ -1,4 +1,5 @@
 import * as api from "../api";
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from "../constants/actionTypes";
 /// redux thunk allows to add async  adn add dispatch
 //actions creators
 // we require Asyncronist data becasue it has to wait for the data
@@ -8,7 +9,7 @@ export const getPosts = () => async (dispatch) => {
     //this fetch the data
     const { data } = await api.fetchPosts();
     ///// we sent the data through the payload ///
-    dispatch({ type: "FETCH_ALL", payload: data });
+    dispatch({ type: FETCH_ALL, payload: data });
   } catch (error) {
     console.log(error.message);
   }
@@ -19,7 +20,7 @@ export const createPost = (post) => async (dispatch) => {
     //this gets the data  gets a post request to our backend server
     const { data } = await api.createPost(post);
 
-    dispatch({ type: "CREATE", payload: data });
+    dispatch({ type: CREATE, payload: data });
   } catch (error) {
     console.log(error.message);
   }
@@ -30,7 +31,7 @@ export const updatePost = (id, post) => async (dispatch) => {
   try {
     const { data } = await api.updatePost(id, post);
     ///passing an action of type of UPDATE
-    dispatch({ type: "UPDATE", payload: data });
+    dispatch({ type: UPDATE, payload: data });
   } catch (error) {
     console.log(error.message);
   }
@@ -40,7 +41,7 @@ export const deletePost = (id) => async (dispatch) => {
   try {
     await api.deletePost(id);
 
-    dispatch({ type: "DELETE", payload: id });
+    dispatch({ type: DELETE, payload: id });
   } catch (error) {
     console.log(error.message);
   }
@@ -52,7 +53,7 @@ export const deletePost = (id) => async (dispatch) => {
      /// we only prove the id because we only liking the post
      const { data } = await api.likePost(id);
 
-     dispatch({ type: "LIKE", payload: data });
+     dispatch({ type: LIKE, payload: data });
    } catch (error) {
      console.log(error.message);
    }
