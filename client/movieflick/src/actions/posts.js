@@ -13,7 +13,7 @@ export const getPosts = () => async (dispatch) => {
     console.log(error.message);
   }
 };
-
+/// this creates the post 
 export const createPost = (post) => async (dispatch) => {
   try {
     //this gets the data  gets a post request to our backend server
