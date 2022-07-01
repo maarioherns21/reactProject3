@@ -13,3 +13,6 @@ export const updatePost = (id, updatedPost) => axios.patch(`${url}/${id}`, updat
 
 ///api call for post to delete
 export const deletePost = (id) => axios.delete(`${url}/${id}`);
+
+///Api call for likePost 
+export const likePost = (id) => axios.patch(`${url}/${id}/likePost`);
