@@ -2,12 +2,13 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
-
+import dotenv from 'dotenv';
 ////routes imported
 import postRoutes from "./routes/posts.js";
 
 //this initizialize the app
 const app = express();
+dotenv.config();
 
 
 
@@ -20,8 +21,7 @@ app.use(cors());
 app.use("/post", postRoutes);
 
 ///THIS ONE CONNECTS TO MONGODB DATABASE
-const CONNECTION_URL =
-  "mongodb+srv://maarioherns21:94621Mar@cluster0.h9zud.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const CONNECTION_URL =  process.env.CONNECTION_URL
 ////this allows  to connect to  the server on port 3001
 const port = process.env.PORT || 3001;
 
