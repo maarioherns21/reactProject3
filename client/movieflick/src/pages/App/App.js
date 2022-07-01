@@ -1,5 +1,6 @@
 import "./App.css";
-import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
+import { Container,Grow, Grid } from "@material-ui/core";
+//this can be added on material ui  AppBar, Typography,
 //this is importing hooks from redux
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
