@@ -2,11 +2,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
   appBar: {
-    borderRadius: 15,
-    margin: '30px 0',
+    borderRadius: 0,
+    marginTop: '10px',
+    marginBottom: '100px',
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'left',
     alignItems: 'center',
   },
   heading: {

@@ -22,13 +22,13 @@ export default function App() {
   }, [dispatch]);
 
   return (
-    <Container maxWidth="lg">
-      <AppBar className={classes.appBar} position="static" color="inherit">
-        <Typography className={classes.heading} variant="h2" align="center">
+    <Container maxWidth="xl">
+      <div className={classes.appBar} position="static" color="inherit">
+        {/* <Typography className={classes.heading} variant="h5" align="center">
           MovieFLicks
-        </Typography>
-        <img className={classes.image} src={logo} alt="logo" height="60" />
-      </AppBar>
+        </Typography> */}
+        <img className={classes.image} src={logo} alt="logo" height="80" />
+      </div>
       <Grow in>
         <Container>
           <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>

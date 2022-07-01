@@ -115,7 +115,7 @@ export default function Form({ currentId, setCurrentId }) {
         <Button
           className={classes.buttonSubmit}
           variant="contained"
-          color="primary"
+          color="inherit"
           size="large"
           type="submit"
           fullWidth
@@ -124,7 +124,7 @@ export default function Form({ currentId, setCurrentId }) {
         </Button>
         <Button
           variant="contained"
-          color="secondary"
+          color="inherit"
           size="small"
           onClick={clear}
           fullWidth
