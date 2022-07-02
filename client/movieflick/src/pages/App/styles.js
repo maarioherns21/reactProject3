@@ -4,7 +4,6 @@ export default makeStyles(() => ({
   appBar: {
     borderRadius: 0,
     marginTop: '10px',
-    marginBottom: '100px',
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
@@ -17,4 +16,8 @@ export default makeStyles(() => ({
   image: {
     marginLeft: '15px',
   },
+  brandContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  }
 }));
