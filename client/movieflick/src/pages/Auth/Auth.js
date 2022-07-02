@@ -5,8 +5,9 @@ import useStyles from "./styles";
 import Input from "./input";
 import Icon from "./Icon";
 import { useState } from "react";
- 
-
+import { useDispatch } from "react-redux";
+///this  replace  useHistory //
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -15,8 +16,8 @@ const Auth = () => {
 const classes = useStyles();
  const [showPassword, setShowPassword] = useState(false);
  const[isSignup, setIsSignUp] = useState(false)
-
-const state = null;
+ const dispatch = useDispatch();
+ const history = useNavigate();
 
 
 const handleSubmit = () =>{
@@ -35,12 +36,21 @@ const switchMode = () => {
 }
 
 
-const googleSuccess = (res) => {
-    console.log(res)
-}
-const googleError =  () => {
-     console.log("Google SIgn in was unsuccesfull")
-}
+const googleSuccess = async (res) => {
+    const result = res?.profileObj;
+    const token = res?.tokenId;
+
+    try {
+      dispatch({ type: 'AUTH', data: { result, token } });
+      
+      
+      history('/')
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const googleError = () => console.log('Google Sign In was unsuccessful. Try again later');
 
 
     return (
@@ -98,13 +108,13 @@ const googleError =  () => {
               type="submit"
               fullWidth
               variant="contained"
-              color="grey"
+              color="default"
               className={classes.submit}
             >
               {isSignup ? "Sign Up" : "Sign In"}
             </Button> 
-            <GoogleLogin
-            clientId="564033717568-e5p23rhvcs4i6kffgsbci1d64r8hp6fn.apps.googleusercontent.com"
+           <GoogleLogin
+            clientId="162420244181-q62nenbdvriqi9rka352b6jncjditevp.apps.googleusercontent.com"
             render={(renderProps) => (
               <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">
                 Google Sign In
