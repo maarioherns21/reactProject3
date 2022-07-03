@@ -13,17 +13,22 @@ import { useSelector } from "react-redux";
 
 export default function Form({ currentId, setCurrentId }) {
   const [postData, setPostData] = useState({
-    creator: "",
+    // creator: "",
     title: "",
     message: "",
     tags: "",
     selectedFile: "",
-  });
-  const post = useSelector((state) =>
-    currentId ? state.posts.find((message) => message._id === currentId) : null
-  );
+  }); 
+  const post = useSelector((state) => currentId ? state.posts.find((message) => message._id === currentId) : null );
   const dispatch = useDispatch();
   const classes = useStyles();
+  ///this is how we get the user //
+  const user = JSON.parse(localStorage.getItem('profile'));
+
+
+
+
+ 
 
   useEffect(() => {
     if (post) setPostData(post);
@@ -32,7 +37,7 @@ export default function Form({ currentId, setCurrentId }) {
   const clear = () => {
     setCurrentId(0);
     setPostData({
-      creator: "",
+      // creator: "",
       title: "",
       message: "",
       tags: "",
@@ -44,13 +49,26 @@ export default function Form({ currentId, setCurrentId }) {
     e.preventDefault();
 
     if (currentId === 0) {
-      dispatch(createPost(postData));
+      // dispatch(createPost(postData));
+
+      //this checks if we currently have the user and how we past the user //
+      dispatch(createPost({...postData , name : user?.result?.name }));
       clear();
     } else {
-      dispatch(updatePost(currentId, postData));
+      // dispatch(updatePost(currentId, postData));
+      dispatch(updatePost({...postData , name : user?.result?.name }));
       clear();
     }
   };
+
+  if(!user?.result?.name) {
+    return (
+      <Paper className={classes.paper}>
+        <Typography variant="h6"></Typography>
+        Please Sign in to create your own memories and like!!
+      </Paper>
+    )
+  }
 
   return (
     <Paper className={classes.paper}>
@@ -63,7 +81,7 @@ export default function Form({ currentId, setCurrentId }) {
         <Typography variant="h6">
           {currentId ? `Editing "${post.title}"` : "Creating a Memory"}
         </Typography>
-        <TextField
+        {/* <TextField
           name="creator"
           variant="outlined"
           label="Creator"
@@ -72,7 +90,7 @@ export default function Form({ currentId, setCurrentId }) {
           onChange={(e) =>
             setPostData({ ...postData, creator: e.target.value })
           }
-        />
+        /> */}
         <TextField
           name="title"
           variant="outlined"

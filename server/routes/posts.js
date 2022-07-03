@@ -1,18 +1,52 @@
-import express from "express";
+import express from 'express';
 
 //this  import the controllers 
 import { getPost, createPost, updatePost, deletePost, likePost } from "../controllers/posts.js";
+
+
+
 const router = express.Router();
+
+//this  middelware is added  to routes that require authentification 
+import auth from "../middleware/auth.js";
+
 
 router.get( "/", getPost);
 ///this route is posting a post // creating
-router.post( "/", createPost);
+router.post('/', auth,  createPost);
 ///this is to update exisisting documents
-router.patch('/:id', updatePost);
+router.patch('/:id', auth, updatePost);
 //this is  the route to delete the post 
-router.delete("/:id", deletePost);
+router.delete('/:id', auth, deletePost);
 // patch is a updating  the post 
-router.patch("/:id/likePost", likePost);
+router.patch('/:id/likePost', auth, likePost);
 
 //this exports the router
 export default router;
+
+
+
+
+
+// import express from "express";
+
+// //this  import the controllers 
+// import { getPost, createPost, updatePost, deletePost, likePost } from "../controllers/posts.js";
+// //this  middelware is added  to routes that require authentification 
+// import auth from "../middleware/auth.js";
+
+
+// const router = express.Router();
+
+// router.get( "/", getPost);
+// ///this route is posting a post // creating
+// router.post( "/", auth, createPost);
+// ///this is to update exisisting documents
+// router.patch('/:id',auth, updatePost);
+// //this is  the route to delete the post 
+// router.delete("/:id",auth, deletePost);
+// // patch is a updating  the post 
+// router.patch("/:id/likePost",auth, likePost);
+
+// //this exports the router
+// export default router;

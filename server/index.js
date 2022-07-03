@@ -5,7 +5,7 @@ import cors from "cors";
 import dotenv from 'dotenv';
 ////routes imported
 import postRoutes from "./routes/posts.js";
-
+import userRoutes from "./routes/users.js";
 //this initizialize the app
 const app = express();
 dotenv.config();
@@ -19,6 +19,8 @@ app.use(cors());
 
 /// this is the routes for the server
 app.use("/post", postRoutes);
+///we addign the routes for the users 
+app.use('/user', userRoutes);
 
 ///THIS ONE CONNECTS TO MONGODB DATABASE
 const CONNECTION_URL =  process.env.CONNECTION_URL
