@@ -1,67 +1,53 @@
-import { Avatar , Button, Paper, Grid, Typography, Container} from "@material-ui/core";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
+import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import useStyles from "./styles";
-import Input from "./input";
+
 import Icon from "./Icon";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-///this  replace  useHistory //
-import { useNavigate } from 'react-router-dom';
-////import sign in and signout actions 
-import { signin, signup } from "../../actions/auth";
+import { signin, signup } from '../../actions/auth';
+import { AUTH } from '../../constants/actionTypes';
+import useStyles from './styles';
+import Input from "./input"
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
 
 const Auth = () => {
-const classes = useStyles();
- const [showPassword, setShowPassword] = useState(false);
- const[isSignup, setIsSignUp] = useState(false)
- ///this is the initial state of the form data!!!!
- const[formData, setFormData] = useState(initialState)
- const dispatch = useDispatch();
- const history = useNavigate();
+  const [form, setForm] = useState(initialState);
+  const [isSignup, setIsSignup] = useState(false);
+  const dispatch = useDispatch();
+  const history = useNavigate();
+  const classes = useStyles();
 
+  const [showPassword, setShowPassword] = useState(false);
+  const handleShowPassword = () => setShowPassword(!showPassword);
 
-const handleSubmit = (e) =>{
-  ///this prevent default is alwasy added for form we dont want reloads
-  e.preventDefault()
-  //  console.log(formData)
-   if( isSignup) {
-    /// this dispatch will add the Formdata into our data base and histry we can navigate 
-    dispatch(signup(formData, history))
-   }
-   else { 
-    dispatch(signin(formData, history))
+  const switchMode = () => {
+    setForm(initialState);
+    setIsSignup((prevIsSignup) => !prevIsSignup);
+    setShowPassword(false);
+  };
 
-   }
-}
-///this handleChange works for infinite inputes if added into  the input fields
-const handleChange = (e) => { 
-    ///we spread the form , we  update current input 'name'  //this is goign to make sure spreades property with the current input we have in there
-  setFormData({ ...formData, [e.target.name] : e.target.value})
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-}
-const handleShowPassword = () =>  setShowPassword((prevShowPassword) => !prevShowPassword )
+    if (isSignup) {
+      dispatch(signup(form, history));
+    } else {
+      dispatch(signin(form, history));
+    }
+  };
 
-
-const switchMode = () => {
-  setFormData(initialState);
-    setIsSignUp((prevIsSingup)=> !prevIsSingup)
-    setShowPassword(false)
-}
-
-
-const googleSuccess = async (res) => {
+  const googleSuccess = async (res) => {
     const result = res?.profileObj;
     const token = res?.tokenId;
 
     try {
-      dispatch({ type: 'AUTH', data: { result, token } });
-      
-      
-      history('/')
+      dispatch({ type: AUTH, data: { result, token } });
+
+      history('/');
     } catch (error) {
       console.log(error);
     }
@@ -69,17 +55,16 @@ const googleSuccess = async (res) => {
 
   const googleError = () => console.log('Google Sign In was unsuccessful. Try again later');
 
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-    return (
-      <Container component="main" maxWidth="sm">
-        <Paper className={classes.paper} elevation={3}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography variant="h5">
-            {isSignup ? "sign up " : "sign in"}
-          </Typography>
-          <form className={classes.form} onSubmit={handleSubmit}>
+  return (
+    <Container component="main" maxWidth="xs">
+      <Paper className={classes.paper} elevation={6}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">{ isSignup ? 'Sign up' : 'Sign in' }</Typography>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             { isSignup && (
             <>
@@ -95,7 +80,7 @@ const googleSuccess = async (res) => {
             { isSignup ? 'Sign Up' : 'Sign In' }
           </Button>
           <GoogleLogin
-            clientId="564033717568-bu2nr1l9h31bhk9bff4pqbenvvoju3oq.apps.googleusercontent.com"
+            clientId="162420244181-q62nenbdvriqi9rka352b6jncjditevp.apps.googleusercontent.com"
             render={(renderProps) => (
               <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">
                 Google Sign In
@@ -105,7 +90,7 @@ const googleSuccess = async (res) => {
             onFailure={googleError}
             cookiePolicy="single_host_origin"
           />
-          <Grid container justify="flex-end">
+          <Grid container justifyContent="flex-end">
             <Grid item>
               <Button onClick={switchMode}>
                 { isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up" }
@@ -113,9 +98,8 @@ const googleSuccess = async (res) => {
             </Grid>
           </Grid>
         </form>
-        </Paper>
-      </Container>
-    );
+      </Paper>
+    </Container>
+  );
 };
-
 export default Auth;

@@ -15,30 +15,46 @@ import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutline
 import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import moment from "moment";
-
+import { useState } from "react";
 //this allows us to use redux on this component
 import { useDispatch } from "react-redux";
 ////this is going to import  the delete action as well as the like action 
 import { deletePost, likePost } from "../../../actions/posts";
+
+import { useNavigate } from "react-router-dom";
 ///distructor the props with adding post into the parameter
 export default function Post({ post, setCurrentId }) {
-  const classes = useStyles();
+  const user = JSON.parse(localStorage.getItem('profile'));
+  const [likes, setLikes] = useState(post?.likes);
   const dispatch = useDispatch();
-///this is how we get the user //
-const user = JSON.parse(localStorage.getItem('profile'));
+  const classes = useStyles();
 
-const Likes = () => {
-  if (post.likes.length > 0) {
-    return post.likes.find((like) => like === (user?.sesult?.googleId || user?.result?._id))
-      ? (
-        <><FavoriteBorderOutlinedIcon fontSize="small" />&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}` }</>
-      ) : (
-        <><Favorite fontSize="small" color="secondary" />&nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}</>
-      );
-  }
+  const userId = user?.result.googleId || user?.result?._id;
+  const hasLikedPost = post.likes.find((like) => like === userId);
 
-  return <><FavoriteBorderOutlinedIcon fontSize="small" />&nbsp;Like</>;
-};
+  const handleLike = async () => {
+    dispatch(likePost(post._id));
+
+    if (hasLikedPost) {
+      setLikes(post.likes.filter((id) => id !== userId));
+    } else {
+      setLikes([...post.likes, userId]);
+    }
+  };
+
+  const Likes = () => {
+    if (likes.length > 0) {
+      return likes.find((like) => like === userId)
+        ? (
+          <><Favorite fontSize="small" color="secondary" />&nbsp;{likes.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}` }</>
+        ) : (
+          <><FavoriteBorderOutlinedIcon fontSize="small" color="primary" />&nbsp;{likes.length} {likes.length === 1 ? 'Like' : 'Likes'}</>
+        );
+    }
+
+    return <><FavoriteBorderOutlinedIcon  fontSize="small" color="primary" />&nbsp;Like</>;
+  };
+
 
   return (
     <Card className={classes.card}>
@@ -66,7 +82,7 @@ const Likes = () => {
             style={{ color: 'white' }}
             size="small"
           >
-            <MoreHorizIcon fontSize="default" />
+            <MoreHorizIcon fontSize="medium" />
           </Button>
         </div>
         )}
@@ -89,12 +105,7 @@ const Likes = () => {
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button
-          size="small"
-          // color="primary"
-          disabled={!user?.result}
-          onClick={() => dispatch(likePost(post._id))}
-        >
+      <Button size="small" disabled={!user?.result} onClick={handleLike}>
           <Likes />
         </Button>
         {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
