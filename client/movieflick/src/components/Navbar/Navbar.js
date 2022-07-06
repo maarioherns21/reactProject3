@@ -4,7 +4,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styles from "./styles";
 import * as actionType from '../../constants/actionTypes';
 import { useDispatch } from 'react-redux';
-
+import decode from "jwt-decode";
 export default function Navbar() {
     const classes = styles();
     ///this alows us to import reducs actions
@@ -26,9 +26,16 @@ export default function Navbar() {
     
         setUser(null);
       };
-
+   /////this  checks if the token is expires  , this decodes the  token to knwo if it was epires // 
     useEffect(() => {
-        // const token = user?.token;
+        
+      const token = user?.token;
+
+        if(token) {
+          const decodedToken = decode(token);
+
+          if(decodedToken.exp * 1000 < new Date().getTime()) logout()
+        }
 
         setUser(JSON.parse(localStorage.getItem('profile')))
     }, [location])
