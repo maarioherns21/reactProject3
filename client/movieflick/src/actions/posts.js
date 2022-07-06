@@ -1,5 +1,5 @@
 import * as api from "../api";
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from "../constants/actionTypes";
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH } from "../constants/actionTypes";
 /// redux thunk allows to add async  adn add dispatch
 //actions creators
 // we require Asyncronist data becasue it has to wait for the data
@@ -14,6 +14,22 @@ export const getPosts = () => async (dispatch) => {
     console.log(error.message);
   }
 };
+   ///this is for searching our tags 
+export const getPostsBySearch = (searchQuery) => async (dispatch) => {
+        
+       try {
+        ////this comunicate with  our api backend // this search for queries 
+        const { data: { data } } = await api.fetchPostsBySearch(searchQuery);
+         /// this dispatch allowed for the data to be able to be manipulted in the fornend 
+        dispatch({ type: FETCH_BY_SEARCH, payload: data });
+      } 
+      catch (error) {
+        console.log(error);
+      }
+};
+
+
+
 /// this creates the post 
 export const createPost = (post) => async (dispatch) => {
   try {

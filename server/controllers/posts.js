@@ -17,6 +17,27 @@ export const getPost = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+//this on is the one that search for the post or tags 
+//// query MEANS = search  -> /post/?page=1 -> page =1  //params -> /post/:id ->  123
+export const getPostsBySearch = async (req, res) => {
+      //we goign tot get the data from the query or search from  the frontend 
+      const { searchQuery, tags } = req.query;
+    
+  try {      
+    //// RegEXp = Regula Expression  = is easier mongodb  moonge to search the data base
+        const title = new RegExp(searchQuery, "i"); /// i stand for ignore test 
+    //////this fsearch in the post\\  the $or =  either findme the title or the tags
+    // tags is if there is tags that match the current tag if yes then we want tp display ourpost 
+     const posts = await PostMessage.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
+     
+     res.json({ data: posts });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
+
+
 ///this creates the logic for a new post  ///also asyncronist  becasue it has to wait for the information
 export const createPost = async (req, res) => {
   ///requesting the  new post

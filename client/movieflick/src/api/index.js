@@ -40,3 +40,6 @@ export const likePost = (id) => API.patch(`/post/${id}/likePost`);
 export const signIn = (formData) => API.post('/user/signin', formData);
 //this is api call for signup
 export const signUp = (formData) => API.post('/user/signup', formData);
+
+//this is for fetching  post  when seraching     ///is a get request becasue we are getting the data // this also handles our tags 
+export const fetchPostsBySearch = (searchQuery) => API.get(`/post/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);

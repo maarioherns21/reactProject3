@@ -7,13 +7,15 @@ import logo from "../../images/logo.png";
 import useStyles from "./styles";
 import Navbar from "../../components/Navbar/Navbar";
 /////importing from the react-dom 
-import { BrowserRouter, Route, Routes} from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Home from "../Home/Home";
 import Auth from "../Auth/Auth";
+import PostDetails from "../../components/PostDetails/PostDetails";
 
 
 export default function App() {
   const classes = useStyles();
+  const user = JSON.parse(localStorage.getItem('Profile'));
 
 
   return (
@@ -26,7 +28,10 @@ export default function App() {
       </div>
       <Navbar/>
       <Routes>
-        <Route path="/" exact element={<Home/>} />
+        <Route path="/" exact element={ <Navigate to="/post"/>} />
+        <Route path="/post" exact element={<Home />} />
+        <Route path="/post/search" exact element={<Home />} />
+        <Route path="/post/:id" exact element={<PostDetails />} />
         <Route path="/auth" exact element={<Auth />} />
       </Routes>
     </Container>
