@@ -5,7 +5,6 @@ import PostMessage from "../models/post.js";
 /// res means respond  and req means request!!
 export const getPost = async (req, res) => {
   //if everything is successful
-  console.log(req)
   try {
     //this is to find something on a model
     const postMessage = await PostMessage.find();

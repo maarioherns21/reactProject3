@@ -42,14 +42,14 @@ export const signup = async (req, res) => {
       //this is to find something on a model
       const existingUser = await User.findOne({ email });
    /// this is if  you creating a user that already exist and stored  in the server
-      if(existingUser) return  res.status(400).json({ message: "User already exist."})
+    if(existingUser) return res.status(404).json({ message: "User does exist."})
    /////this is if when we are creating the password in the form if the current password is not the same as the confirmpassword
       if(password !== confirmPassword) return  res.status(400).json({ message: "Passwords don't match."})
     ////this                         ////this is thelevel of dificulty to has password 
-      const hashedPasword = await bcrypt.hash(password, 12)
+      const hashedPassword = await bcrypt.hash(password, 12)
 
     ////this is creating the User // this is the format
-    const result = await User.create({ email,password: hashedPasword, name :`${firstName} ${lastName}`})
+    const result = await User.create({ email, password: hashedPassword, name :`${firstName} ${lastName}`})
    
     //this keeps the User loggin for  what ever  time is inputed with expiresIn  this is our token
     const token = jwt.sign({ email: result.email, id: result._id }, 'test' , {expiresIn: "1h"})
@@ -57,15 +57,16 @@ export const signup = async (req, res) => {
     //// the 200 means everyhting when well and we sending  created user which is the result of the creation 
     res.status(200).json({ result, token });
 
-    } catch (error) {
+    } 
+    catch (error) {
       //if we get an error error 500 will populate something when wrong
-      res.status(500).json({ message: 'Something went wrong!' });
+      res.status(500).json({ message: 'Something went wrong creating the profile!' });
     }
   };
 
 
 
-
+  
 //   ///this hash the password to  make them secure and noone can see them on the browers
 // import bcrypt from "bcrypt";
 // ///this allows to stored a users  for a certain amount of time  or been logged in 

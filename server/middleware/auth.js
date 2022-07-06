@@ -10,6 +10,7 @@ const auth =  async (req,res, next) => {
      
     //this is to get the token from the frontend 
      ///  we split it , the token is in the first positioning of the array
+     //this is lowerCase
      const token = req.headers.authorization.split(" ")[1];
      console.log(token)
     ///this is how we fing if is greater 500  is googleAuth,  if is under 500 it means is oyr custom Auth
