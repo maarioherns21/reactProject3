@@ -1,6 +1,21 @@
 import mongoose from "mongoose";
 import PostMessage from "../models/post.js";
 
+
+///this get a particularpost from req.params 
+export const getPosts = async (req, res) => {
+  //thist defrbringing the id from the fronend 
+  const { id } = req.params;
+  try {
+    ///fidning the correct id for the post 
+    const post = await PostMessage.findById(id);
+  //// sending back the post with the detail info 
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 ///this is a asyncrinist function becasue it has to wait for the data
 /// res means respond  and req means request!!
 export const getPost = async (req, res) => {

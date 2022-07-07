@@ -43,3 +43,6 @@ export const signUp = (formData) => API.post('/user/signup', formData);
 
 //this is for fetching  post  when seraching     ///is a get request becasue we are getting the data // this also handles our tags 
 export const fetchPostsBySearch = (searchQuery) => API.get(`/post/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);
+
+/// this API fetchest the post partifcularly the post  id so it can bring the details page
+export const fetchPost = (id) => API.get(`/post/${id}`)

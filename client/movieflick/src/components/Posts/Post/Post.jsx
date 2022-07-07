@@ -28,6 +28,7 @@ export default function Post({ post, setCurrentId }) {
   const [likes, setLikes] = useState(post?.likes);
   const dispatch = useDispatch();
   const classes = useStyles();
+  const history = useNavigate();
 
   const userId = user?.result.googleId || user?.result?._id;
   const hasLikedPost = post.likes.find((like) => like === userId);
@@ -54,10 +55,21 @@ export default function Post({ post, setCurrentId }) {
 
     return <><FavoriteBorderOutlinedIcon  fontSize="small" color="primary" />&nbsp;Like</>;
   };
+   
+  const openPost = (e) => {
+    // dispatch(getPost(post._id, history));
 
+    history(`/post/${post._id}`);
+  };
 
   return (
     <Card className={classes.card} raised elevation={3}>
+      <div  
+       component="span"
+        name="test"
+        className={classes.cardAction}
+        onClick={openPost}
+      >
       <CardMedia
         className={classes.media}
         image={
@@ -104,6 +116,7 @@ export default function Post({ post, setCurrentId }) {
           {post.message}
         </Typography>
       </CardContent>
+      </div>
       <CardActions className={classes.cardActions}>
       <Button size="small" disabled={!user?.result} onClick={handleLike}>
           <Likes />

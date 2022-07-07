@@ -1,7 +1,19 @@
 import * as api from "../api";
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH } from "../constants/actionTypes";
+import {FETCH_POST, FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, FETCH_BY_SEARCH } from "../constants/actionTypes";
 /// redux thunk allows to add async  adn add dispatch
 //actions creators
+export const getPost = (id) => async (dispatch) => {
+  try {
+    ///we getting the reponse from the api /we getting the post with this!!
+    //this fetch the data
+    const { data } = await api.fetchPost(id);
+    ///// we sent the data through the payload ///
+    dispatch({ type: FETCH_POST, payload: { post: data } });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // we require Asyncronist data becasue it has to wait for the data
 export const getPosts = () => async (dispatch) => {
   try {
