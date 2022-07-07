@@ -73,7 +73,7 @@ export default function Home () {
          <AppBar className={classes.appBarSearch} position="static" color="inherit">
           <TextField name="search" variant="outlined" label="Search Memories" onKeyPress={handleKeyPress} fullWidth  value={search}  onChange={(e) => setSearch(e.target.value)}/>
           <ChipInput style={{margin: '10px 0'}} value={tags} onAdd={handleAdd} onDelete={handleDelete} label="Search Tags" variant="outlined" />
-          <Button onClick={searchPost} className={classes.searchButton} color="primary" variant="contained">Search</Button>
+          <Button onClick={searchPost} className={classes.searchButton} color="inherit">Search</Button>
           </AppBar>
             <Form currentId={currentId}  setCurrentId={setCurrentId}/>
             <Paper className={classes.pagination} elevation={6} >
