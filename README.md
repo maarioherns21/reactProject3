@@ -1,5 +1,5 @@
 ### WIREFRAMING
-![alt text](./memories.png)
+![alt text](./client/movieflick/public/memories.png)
 
 
 ### TECHNOLOGIES
