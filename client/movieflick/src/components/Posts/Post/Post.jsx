@@ -63,7 +63,7 @@ export default function Post({ post, setCurrentId }) {
   };
 
   return (
-    <Card className={classes.card} raised elevation={2}>
+    <Card className={classes.card} raised elevation={3}>
       <div  
        component="span"
         name="test"

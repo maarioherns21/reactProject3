@@ -48,7 +48,7 @@ export default function Navbar() {
         <Typography component={Link} to="/" className={classes.heading} variant="h6" align="center">Share</Typography>
         <Typography component={Link} to="/" className={classes.heading} variant="h6" align="center">Discover</Typography>
         <Typography component={Link} to="/" className={classes.heading} variant="h6" align="center">Upload</Typography>
-        <Typography component={Link} to="/mymemories" className={classes.heading} variant="h6" align="center">Your Memories</Typography>
+        <Typography component={Link} to="/" className={classes.heading} variant="h6" align="center">Your Memories</Typography>
       </div>
       <Toolbar className={classes.toolbar}>
         {user?.result ? (

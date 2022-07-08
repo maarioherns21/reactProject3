@@ -11,8 +11,6 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Home from "../Home/Home";
 import Auth from "../Auth/Auth";
 import PostDetails from "../../components/PostDetails/PostDetails";
-import Footer from "../../components/Footer/Footer";
-import Mymemories from "../Mymemories/Mymemories";
 
 
 export default function App() {
@@ -35,9 +33,7 @@ export default function App() {
         <Route path="/post/search" exact element={<Home />} />
         <Route path="/post/:id" exact element={<PostDetails />} />
         <Route path="/auth" exact element={<Auth />} />
-        <Route path="/mymemories" exact element={<Mymemories />} />
       </Routes>
-      <Footer/>
     </Container>
     </BrowserRouter>
   
