@@ -32,7 +32,7 @@ app.listen(port, function () {
 });
 
 ////this one allows to coonenct to the data base
-mongoose.connect(CONNECTION_URL, {
+mongoose.connect('mongodb+srv://maarioherns21:94621Mar@cluster0.h9zud.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -46,3 +46,13 @@ db.on("connected", function () {
 
 // ////THIS WILL MAKE SURE THERE IS NO WORNINGS
 // mongoose.set('useFindAndModify', false);
+// mongoose.connect('mongodb+srv://maarioherns21:94621Mar@cluster0.h9zud.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// });
+
+// const db = mongoose.connection;
+
+// db.on("connected", function () {
+//   console.log(`Connected to MongoDB at ${db.host}:${db.port}`);
+// });
