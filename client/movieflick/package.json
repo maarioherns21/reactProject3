@@ -1,8 +1,8 @@
 {
-  "name": "client",
+  "name": "movieflick",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://instamemos.herokuapp.com/",
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "@material-ui/core": "^4.9.10",
     "@material-ui/icons": "^4.9.1",

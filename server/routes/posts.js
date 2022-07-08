@@ -13,7 +13,7 @@ import auth from "../middleware/auth.js";
 router.get( "/search", getPostsBySearch);
 //this one is only for the post 
 router.get( "/", getPost);
-/// this takes you to the ID info page
+/// this takes you to the  users post ID info page
 router.get('/:id', getPosts)
 ///this route is posting a post // creating
 router.post('/', auth,  createPost);
